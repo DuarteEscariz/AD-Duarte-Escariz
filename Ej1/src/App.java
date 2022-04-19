@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class App {
@@ -34,8 +35,19 @@ public class App {
             int loop=0;
             int i=0;
             while(sc.hasNext()){
-
+                try(PrintWriter pw= new PrintWriter(new File(f.getAbsolutePath()+(loop+1) ))){
+                    for (int index = 0; index < n; index++) {
+                        if(sc.hasNext()){ //necesario?
+                            pw.println(sc.nextLine());
+                        }
+                    }
+                }
+                loop++;
             }
         }
     }
+    public void unir(File[] as){
+        
+    }
 }
+
