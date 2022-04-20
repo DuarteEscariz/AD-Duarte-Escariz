@@ -46,8 +46,16 @@ public class App {
             }
         }
     }
-    public void unir(File[] as){
-        
+    public void unir(File[] as) throws FileNotFoundException{
+        try(PrintWriter pw=new PrintWriter(new File(as[0].getParentFile().getAbsolutePath()+"/union"))){
+                for (File file : as) {
+                    try(Scanner sc=new Scanner(file)){
+                        while(sc.hasNext()){
+                            pw.println(sc.nextLine());
+                        }
+                    }
+                }
+        }
     }
 }
 
