@@ -8,45 +8,42 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        
+        File prueba=new File("C:/Users/Duarte/Desktop/AD/Pruebas/a.txt");
+        divCadenas(prueba,2);
         
     }
-    public void divChar(File f, int n) throws IOException{
+    public static void divChar(File f, int n) throws IOException{
         try(FileReader fichin=new FileReader(f)){
             char buffer[]=new char[n];
             int i;
             int loop=0;
             while((i=fichin.read(buffer))!=-1){
                 loop++;
-                File nueva=new File(f.getAbsolutePath()+loop);
+                File nueva=new File(f.getParentFile().getAbsolutePath()+"/"+"copia"+loop+".txt" );
                 try(FileWriter fichOut=new FileWriter(nueva)){
-                    String cad=new String(buffer,0,i);
-                    for(int a=0;a<cad.length();a++){
-                        fichOut.write(cad.charAt(a));
-                        //Preguntar fichOut.write(System.getProperty("line.separator"));
-                    }
+                    fichOut.write(buffer,0,i);
                 }
             }
 
         }
     }
-    public void divCadenas(File f, int n) throws FileNotFoundException{
+    public static void divCadenas(File f, int n) throws FileNotFoundException{
         try(Scanner sc=new Scanner(f)){
             int loop=0;
             int i=0;
             while(sc.hasNext()){
-                try(PrintWriter pw= new PrintWriter(new File(f.getAbsolutePath()+(loop+1) ))){
-                    for (int index = 0; index < n; index++) {
-                        if(sc.hasNext()){ //necesario?
+                try(PrintWriter pw= new PrintWriter(new File(f.getParentFile().getAbsolutePath()+"/"+"copia"+(loop+1)+".txt" ))){
+                    for (int index = 0; index < n && sc.hasNext() ; index++) {
+                       
                             pw.println(sc.nextLine());
-                        }
+                        
                     }
                 }
                 loop++;
             }
         }
     }
-    public void unir(File[] as) throws FileNotFoundException{
+    public static void unir(File[] as) throws FileNotFoundException{
         try(PrintWriter pw=new PrintWriter(new File(as[0].getParentFile().getAbsolutePath()+"/union"))){
                 for (File file : as) {
                     try(Scanner sc=new Scanner(file)){
