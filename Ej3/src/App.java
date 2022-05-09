@@ -35,7 +35,30 @@ public class App {
             } catch (EOFException e) {}
         }
     }
-    public void borrarAlumno(int borrar){
-        try()
+    public void borrarAlumno(int borrar)throws IOException{
+        try(FileInputStream fis= new FileInputStream(archivo);
+        DataInputStream in= new DataInputStream(fis)){
+            int loop=1;
+            try(FileOutputStream fos= new FileOutputStream(archivo);
+                DataOutputStream out= new DataOutputStream(fos)){
+                    try {
+                        while(true){
+                           if(loop!=borrar){
+                               out.writeUTF(in.readUTF());
+                               out.writeInt(in.readInt());
+                               out.writeInt(in.readInt());
+                           }else{
+                               in.readUTF();
+                               in.readInt();
+                               in.readInt();
+                           } 
+                           loop++;
+                        }
+                    } catch (EOFException e) {
+                        //TODO: handle exception
+                    }
+                }
+           
+        }
     }
 }
